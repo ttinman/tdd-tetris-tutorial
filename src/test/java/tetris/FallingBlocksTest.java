@@ -100,6 +100,7 @@ public class FallingBlocksTest extends Assert {
 
         @Test
         public void it_stops_when_it_hits_the_bottom() {
+
             board.tick();
             assertEquals("" +
                     "...\n" +

@@ -10,6 +10,7 @@ public class Board {
     private ArrayList<Block> fallBlocks = new ArrayList<Block>();
     private boolean hasFalling;
 
+
     public Board(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
