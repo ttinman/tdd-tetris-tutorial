@@ -34,7 +34,6 @@ public class Block {
     }
 
     public int fallIn(Board contextBoard){
-
         if(contextBoard.isEnoughSpaceToMove(positionX,positionY+1)){
            positionY++;
            return positionY;
