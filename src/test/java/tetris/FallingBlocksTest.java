@@ -1,6 +1,9 @@
-// Copyright (c) 2008-2010  Esko Luontola <www.orfjackal.net>
-// You may use and modify this source code freely for personal non-commercial use.
-// This source code may NOT be used as course material without prior written agreement.
+/*
+ * Copyright (c) 2008-2009  Esko Luontola, www.orfjackal.net
+ *
+ * You may use and modify this source code freely for personal non-commercial use.
+ * This source code may NOT be used as course material without prior written agreement.
+ */
 
 package tetris;
 
@@ -14,7 +17,7 @@ import org.junit.runner.RunWith;
 @RunWith(NestedJUnit4.class)
 public class FallingBlocksTest extends Assert {
 
-    private final Board board = new Board(3, 3);
+    private Board board = new Board(3, 3);
 
 
     public class A_new_board {
@@ -32,7 +35,6 @@ public class FallingBlocksTest extends Assert {
             assertFalse(board.hasFalling());
         }
     }
-
 
     public class When_a_block_is_dropped {
 
@@ -78,8 +80,6 @@ public class FallingBlocksTest extends Assert {
         }
     }
 
-
-
     public class When_a_block_reaches_the_bottom {
 
         @Before
@@ -91,40 +91,32 @@ public class FallingBlocksTest extends Assert {
 
         @Test
         public void it_is_still_falling_on_the_last_row() {
+            assertTrue(board.hasFalling());
             assertEquals("" +
                     "...\n" +
                     "...\n" +
                     ".X.\n", board.toString());
-            assertTrue("the player should still be able to move the block", board.hasFalling());
         }
 
         @Test
         public void it_stops_when_it_hits_the_bottom() {
-
             board.tick();
+            assertFalse(board.hasFalling());
             assertEquals("" +
                     "...\n" +
                     "...\n" +
                     ".X.\n", board.toString());
-            assertFalse("the block should stop moving", board.hasFalling());
         }
     }
-
-
 
     public class When_a_block_lands_on_another_block {
 
         @Before
         public void landOnAnother() {
-            board.drop(new Block('X'));
-            board.tick();
-            board.tick();
-            board.tick();
-            assertEquals("" +
+            board = new Board("" +
                     "...\n" +
                     "...\n" +
-                    ".X.\n", board.toString());
-            assertFalse(board.hasFalling());
+                    ".X.\n");
 
             board.drop(new Block('Y'));
             board.tick();
@@ -132,22 +124,21 @@ public class FallingBlocksTest extends Assert {
 
         @Test
         public void it_is_still_falling_right_above_the_other_block() {
+            assertTrue(board.hasFalling());
             assertEquals("" +
                     "...\n" +
                     ".Y.\n" +
                     ".X.\n", board.toString());
-            assertTrue("the player should still be able to avoid landing on the other block", board.hasFalling());
         }
 
         @Test
         public void it_stops_when_it_hits_the_other_block() {
             board.tick();
+            assertFalse(board.hasFalling());
             assertEquals("" +
                     "...\n" +
                     ".Y.\n" +
                     ".X.\n", board.toString());
-            assertFalse("the block should stop moving when it lands on the other block", board.hasFalling());
         }
     }
-
 }
